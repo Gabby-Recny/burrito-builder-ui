@@ -22,6 +22,6 @@ export const postNewOrder = (newData) => {
     body: JSON.stringify(newData)
   })
   .then(response => checkResponse(response))
-  // .then(getOrders())
+  .then(getOrders())
 
 }

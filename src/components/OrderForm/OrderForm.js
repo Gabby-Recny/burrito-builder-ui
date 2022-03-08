@@ -8,13 +8,15 @@ class OrderForm extends Component {
     this.props = props;
     this.state = {
       name: '',
-      ingredients: []
+      ingredients: [],
+      btnStatus: true
     };
   }
   handleNameChange = (event) => {
     this.setState({
       name: event.target.value,
     })
+    this.disableButton()
   }
   
   handleIngredientChange = (event) => {
@@ -22,6 +24,7 @@ class OrderForm extends Component {
     this.setState({
       ingredients: [...this.state.ingredients, event.target.value]
     })
+    this.disableButton()
   }
   
   handleSubmit = e => {
@@ -39,6 +42,18 @@ class OrderForm extends Component {
 
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
+  }
+
+  disableButton = () => {
+    if (!this.state.name && !this.state.ingredients.length) {
+      this.setState({
+        btnStatus: true,
+      })
+    } else {
+      this.setState({
+        btnStatus: false,
+      })
+    }
   }
 
   render() {
@@ -73,7 +88,7 @@ class OrderForm extends Component {
 
         <button 
           onClick={e => this.handleSubmit(e)}
-          disabled={!this.state.name || !this.state.ingredients}
+          disabled={this.state.btnStatus}
           className='submit-button' 
           >
           Submit Order
