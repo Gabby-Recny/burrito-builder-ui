@@ -50,6 +50,7 @@ class OrderForm extends Component {
             key={ingredient}
             name={ingredient} 
             value={ingredient} 
+            className='ingredient-btns'
             onClick={(e) => this.handleIngredientChange(e)}
             >
             {ingredient}
@@ -70,7 +71,7 @@ class OrderForm extends Component {
 
         { ingredientButtons }
 
-        <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
+        <p className='add-ingredients'>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
         <button 
           onClick={e => this.handleSubmit(e)}
