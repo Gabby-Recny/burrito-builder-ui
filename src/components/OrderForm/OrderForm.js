@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postNewOrder } from '../../apiCalls';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -20,18 +21,18 @@ class OrderForm extends Component {
     this.setState({
       ingredients: [...this.state.ingredients, event.target.value]
     })
-    console.log(this.state.ingredients)
   }
-  
-  
   
   handleSubmit = e => {
     e.preventDefault();
     const newOrder = {
-      id:Date.now(),
+      id: Date.now(),
       ...this.state
-  }
-    this.props.addNewOrder(newOrder)
+    }
+
+    postNewOrder(newOrder)
+      .then(this.props.addNewOrder(newOrder))
+      .catch(err => console.log(err))
     this.clearInputs();
   }
 
@@ -44,7 +45,6 @@ class OrderForm extends Component {
     const ingredientButtons = possibleIngredients.map(ingredient => {
       return (
         <>
-        {console.log(ingredient)}
         <button 
             key={ingredient}
             name={ingredient} 
